@@ -1,0 +1,31 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Oculta todo scroll */
+  font-family: "Poppins", sans-serif;
+  color: rgb(160, 16, 16);
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  position: relative;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Evita scroll desde React */
+}
+
+* {
+  box-sizing: border-box; /* Para evitar desbordes inesperados */
+}
+
+@keyframes moveLights {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-120px, -120px); }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}

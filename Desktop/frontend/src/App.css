@@ -1,0 +1,108 @@
+.App {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  color: rgb(166, 191, 240);
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+  overflow: hidden; /* Elimina el scroll */
+}
+
+/* Fondo de cadenas flotantes, en z-index: 0 (por defecto) */
+ /* Aquí no necesitas cambiar nada, solo asegúrate que tu componente CodeRainBackground tenga z-index: 0 si lo configuras */
+
+header {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* Para que la foto y otros elementos puedan tener superposiciones o efectos hover si quieres */
+.foto-container {
+  display: inline-block;
+  margin-bottom: 22px;
+  transition: all 0.3s ease;
+}
+
+.foto-perfil {
+  width: 320px;
+  height: 320px;
+  border-radius: 30px;
+  object-fit: cover;
+  box-shadow:  1 0 40px rgba(83, 117, 209, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* Foto se difumina y resplandece al hacer hover sobre proyectos */
+.proyectos:hover ~ header .foto-container,
+.proyecto-card:hover ~ header .foto-container {
+  filter: blur(4px) brightness(1.2);
+  box-shadow: 0 0 60px rgba(19, 41, 100, 0.8);
+  
+}
+
+.sobre-mi {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.proyectos-section {
+  margin-bottom: 5px;
+  
+}
+
+.proyectos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  
+}
+
+.proyecto-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 20px;
+  width: 250px;
+  transition: all 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
+}
+
+/* Resplandor de proyecto al pasar el cursor */
+.proyecto-card:hover {
+  box-shadow: 0 0 20px rgba(59, 76, 123, 0.7), 0 0 40px rgba(2, 10, 35, 0.5);
+  transform: translateY(-5px);
+  color:beige
+}
+
+/* Estilo para enlaces a GitHub */
+.proyecto-card a[href*="github.com"] {
+  color: #bec1ce1e;
+  text-decoration: none;
+}
+
+.proyecto-card a[href*="github.com"]:hover {
+  text-decoration: underline;
+}
+
+.contacto {
+  margin-bottom: 10px;
+}
+
+.contacto a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #5c7ff1ff;
+  text-decoration: none;
+}
+
+.contacto a:hover {
+  text-decoration: underline;
+}
+
+/* Añadido: capa superior para el contenido principal */
+.content-overlay {
+  position: relative;
+  z-index: 10; /* mayor que el fondo */
+}
