@@ -11,7 +11,7 @@ export function App() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/proyectos")
+      .get("https://tu-backend.onrender.com/proyectos")
       .then((res) => setProyectos(res.data))
       .catch(() =>
         setProyectos([
