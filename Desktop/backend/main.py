@@ -6,7 +6,7 @@ import os
 
 app = FastAPI(title="Portafolio API")
 
-# Permitir que React acceda al backend
+# Permitir que cualquier origen acceda (ajusta en producción)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Cambia a tu dominio en producción
@@ -40,7 +40,7 @@ proyectos = [
 sobre_mi = {
     "nombre": "Miguel Sierra",
     "profesion": "Desarrollador Python Fullstack Junior",
-    "skills": ["Python", "Flask", "FastAPI", "React", "SQL", "Postgresql", "AWS", "Chatbots", "OpenAI", "LocalAI"],
+    "skills": ["Python", "Flask", "FastAPI", "React", "SQL", "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"],
     "fotoPerfil": "/public/foto_perfil.jpeg"
 }
 
@@ -51,28 +51,29 @@ contacto = {
 }
 
 # Endpoints
-@app.get("/")
-def read_root():
-    return {"message": "Bienvenido a mi portafolio 🚀"}
 
+
+# Endpoint para listar proyectos
 @app.get("/proyectos", response_model=List[dict])
 def get_proyectos():
     return proyectos
 
+# Endpoint para obtener información "sobre mí"
 @app.get("/sobre-mi")
 def get_sobre_mi():
     return sobre_mi
 
+# Endpoint para obtener datos de contacto
 @app.get("/contacto")
 def get_contacto():
     return contacto
 
-# Montar los archivos estáticos del frontend
-# Ruta absoluta desde el backend
+# Montar archivos estáticos del frontend
+# La ruta absoluta asumiendo que en tu proyecto frontend está en ../frontend/public
 frontend_public_path = os.path.join(os.path.dirname(__file__), "../frontend/public")
 app.mount("/public", StaticFiles(directory=frontend_public_path), name="public")
 
-
+# Para correrlo localmente (esto NO es necesario en despliegue en Render)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
