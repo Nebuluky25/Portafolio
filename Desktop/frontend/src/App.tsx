@@ -25,7 +25,7 @@ export function App() {
       );
 
     axios
-      .get("http://127.0.0.1:8000/sobre-mi")
+      .get("https://tu-backend.onrender.com/proyectos")
       .then((res) => setSobreMi(res.data))
       .catch(() =>
         setSobreMi({
@@ -37,7 +37,7 @@ export function App() {
       );
 
     axios
-      .get("http://127.0.0.1:8000/contacto")
+      .get("https://tu-backend.onrender.com/proyectos")
       .then((res) => setContacto(res.data))
       .catch(() =>
         setContacto({
