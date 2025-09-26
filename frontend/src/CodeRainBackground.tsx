@@ -50,7 +50,14 @@ const CodeRainBackground: React.FC = () => {
     };
     resizeCanvas();
 
-    // Lista de áreas protegidas donde no deben aparecer los strings
+    // Listener de resize
+    const handleResize = () => {
+      resizeCanvas();
+      protectedAreas = getProtectedAreas();
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Zonas protegidas
     const getProtectedAreas = () => [
       { x: 20, y: 20, width: 450, height: 450 }, // foto de perfil
       { x: 0, y: 500, width: window.innerWidth, height: 150 }, // sobre mí
@@ -59,12 +66,7 @@ const CodeRainBackground: React.FC = () => {
 
     let protectedAreas = getProtectedAreas();
 
-    // Actualizar áreas protegidas en resize
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      protectedAreas = getProtectedAreas();
-    });
-
+    // Crear luces
     const numLights = 50;
     const lights: Light[] = Array.from({ length: numLights }, () => ({
       x: Math.random() * window.innerWidth,
@@ -77,11 +79,11 @@ const CodeRainBackground: React.FC = () => {
       fading: Math.random() > 0.5,
     }));
 
+    // Función de dibujo
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const light of lights) {
-        // Mover
         light.x += light.speedX;
         light.y += light.speedY;
 
@@ -90,17 +92,17 @@ const CodeRainBackground: React.FC = () => {
         if (light.y < 0 || light.y > window.innerHeight) light.speedY *= -1;
 
         // Evitar zonas protegidas
-        for (const area of protectedAreas) {
-          if (
+        const inProtected = protectedAreas.some(
+          (area) =>
             light.x > area.x &&
             light.x < area.x + area.width &&
             light.y > area.y &&
             light.y < area.y + area.height
-          ) {
-            // mover fuera
-            light.x += light.speedX * 2;
-            light.y += light.speedY * 2;
-          }
+        );
+
+        if (inProtected) {
+          light.x += light.speedX * 2;
+          light.y += light.speedY * 2;
         }
 
         // Fading
@@ -120,16 +122,8 @@ const CodeRainBackground: React.FC = () => {
           }
         }
 
-        // Verificar si la posición está en áreas protegidas antes de dibujar
-        const enZonaProtegida = protectedAreas.some(
-          (area) =>
-            light.x > area.x &&
-            light.x < area.x + area.width &&
-            light.y > area.y &&
-            light.y < area.y + area.height
-        );
-
-        if (!enZonaProtegida) {
+        // Dibujar si no está en zona protegida
+        if (!inProtected) {
           ctx.font = `${light.fontSize}px monospace`;
           ctx.fillStyle = `rgba(200,200,200,${light.opacity})`;
           ctx.shadowColor = `rgba(200,200,200,${light.opacity})`;
@@ -145,10 +139,7 @@ const CodeRainBackground: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", () => {
-        resizeCanvas();
-        protectedAreas = getProtectedAreas();
-      });
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
