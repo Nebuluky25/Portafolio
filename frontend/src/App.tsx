@@ -11,7 +11,7 @@ export function App() {
 
   useEffect(() => {
     axios
-      .get("https://tu-backend.onrender.com/proyectos")
+      .get("https://portafolio-73wj.onrender.com/")
       .then((res) => setProyectos(res.data))
       .catch(() =>
         setProyectos([
@@ -25,7 +25,7 @@ export function App() {
       );
 
     axios
-      .get("https://tu-backend.onrender.com/proyectos")
+      .get("https://portafolio-73wj.onrender.com/sobre-mi")
       .then((res) => setSobreMi(res.data))
       .catch(() =>
         setSobreMi({
@@ -37,7 +37,7 @@ export function App() {
       );
 
     axios
-      .get("https://tu-backend.onrender.com/proyectos")
+      .get("https://portafolio-73wj.onrender.com/contacto")
       .then((res) => setContacto(res.data))
       .catch(() =>
         setContacto({
