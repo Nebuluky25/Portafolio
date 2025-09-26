@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import CodeRainBackground from "./CodeRainBackground"; // Componente del fondo
+import CodeRainBackground from "./CodeRainBackground"; // Fondo de lluvia de código
 import "./App.css";
+
+const BACKEND_URL = "https://portafolio-73wj.onrender.com";
 
 export function App() {
   const [proyectos, setProyectos] = useState<any[]>([]);
@@ -12,10 +14,8 @@ export function App() {
   useEffect(() => {
     // Proyectos
     axios
-      .get("https://portafolio-73wj.onrender.com/proyectos")
-      .then((res) => {
-        setProyectos(Array.isArray(res.data) ? res.data : []);
-      })
+      .get(`${BACKEND_URL}/proyectos`)
+      .then((res) => setProyectos(Array.isArray(res.data) ? res.data : []))
       .catch(() =>
         setProyectos([
           {
@@ -29,14 +29,14 @@ export function App() {
 
     // Sobre mí
     axios
-      .get("https://portafolio-73wj.onrender.com/sobre-mi")
-      .then((res) => {
-        setSobreMi(res.data && typeof res.data === "object" ? res.data : {});
-      })
+      .get(`${BACKEND_URL}/sobre-mi`)
+      .then((res) =>
+        setSobreMi(res.data && typeof res.data === "object" ? res.data : {})
+      )
       .catch(() =>
         setSobreMi({
           nombre: "Miguel Sierra",
-          fotoPerfil: "/vite.svg",
+          fotoPerfil: "/foto_perfil.jpeg",
           profesion: "Desarrollador Junior Python",
           skills: ["Python", "Flask", "FastAPI", "React"],
         })
@@ -44,10 +44,10 @@ export function App() {
 
     // Contacto
     axios
-      .get("https://portafolio-73wj.onrender.com/contacto")
-      .then((res) => {
-        setContacto(res.data && typeof res.data === "object" ? res.data : {});
-      })
+      .get(`${BACKEND_URL}/contacto`)
+      .then((res) =>
+        setContacto(res.data && typeof res.data === "object" ? res.data : {})
+      )
       .catch(() =>
         setContacto({
           email: "msworkpy@gmail.com",
@@ -64,7 +64,7 @@ export function App() {
 
       {/* Contenido principal */}
       <div className="content-overlay" style={{ overflow: "hidden" }}>
-        {/* Header con foto y nombre */}
+        {/* Header */}
         {sobreMi.fotoPerfil && (
           <motion.div
             className="foto-container"
@@ -100,7 +100,7 @@ export function App() {
           </span>
         </motion.h3>
 
-        {/* Sección Sobre mí */}
+        {/* Sobre mí */}
         <section className="sobre-mi">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -111,12 +111,13 @@ export function App() {
             Me encanta crear soluciones prácticas y aprender nuevas tecnologías.<br />
             <span>
               <strong>Experiencia en:</strong>{" "}
-              {sobreMi.skills?.join(", ") || "Python, Flask, FastAPI, Django, React"}.
+              {sobreMi.skills?.join(", ") ||
+                "Python, Flask, FastAPI, Django, React"}.
             </span>
           </motion.p>
         </section>
 
-        {/* Sección Proyectos */}
+        {/* Proyectos */}
         <section className="proyectos-section">
           <h2 style={{ fontSize: "2.2rem", color: "#9da9f5ff" }}>Proyectos</h2>
           <div className="proyectos">
@@ -151,7 +152,7 @@ export function App() {
           </div>
         </section>
 
-        {/* Sección Contacto */}
+        {/* Contacto */}
         <section className="contacto" style={{ color: "#929eeeff" }}>
           <h2 style={{ color: "#9ba7f0ff" }}>Contacto</h2>
           {contacto.email && (
