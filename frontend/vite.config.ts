@@ -9,4 +9,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  base: '/', // <-- Muy importante: usa '/' para Vercel, o '/Portafolio/' si es GitHub Pages
 })
