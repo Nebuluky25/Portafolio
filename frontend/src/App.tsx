@@ -22,7 +22,7 @@ export function App() {
             id: 1,
             nombre: "Proyecto Demo",
             descripcion: "Ejemplo de proyecto en GitHub",
-            url: "https://github.com/miguel/demo",
+            url: "https://github.com/Nebuluky25/Portafolio.git",
           },
         ])
       );
