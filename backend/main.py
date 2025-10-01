@@ -6,16 +6,18 @@ import os
 
 app = FastAPI(title="Portafolio API")
 
-# Permitir que React acceda al backend
+# Permitir que React (Vercel) acceda al backend (Render)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Cambia a tu dominio en producción
+    allow_origins=["*"],  # ⚠️ En producción cámbialo a tu dominio de Vercel
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# -------------------
 # Datos de ejemplo
+# -------------------
 proyectos = [
     {
         "id": 1,
@@ -40,8 +42,12 @@ proyectos = [
 sobre_mi = {
     "nombre": "Miguel Sierra",
     "profesion": "Desarrollador Python Fullstack Junior",
-    "skills": ["Python", "Flask", "FastAPI", "React", "SQL", "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"],
-    "fotoPerfil": "/public/foto_perfil.jpeg"
+    "skills": [
+        "Python", "Flask", "FastAPI", "React", "SQL",
+        "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"
+    ],
+    # Ahora servimos la foto desde /static
+    "fotoPerfil": "https://portafolio-73wj.onrender.com/static/foto_perfil.jpeg"
 }
 
 contacto = {
@@ -50,7 +56,9 @@ contacto = {
     "linkedin": "https://www.linkedin.com/in/miguel-sierra-sacie-830324261"
 }
 
-# Endpoints
+# -------------------
+# Endpoints API
+# -------------------
 @app.get("/")
 async def read_root():
     return {"message": "Hola Mundo"}
@@ -67,11 +75,14 @@ def get_sobre_mi():
 def get_contacto():
     return contacto
 
-# En Render no necesitamos montar el frontend, eso se sirve desde Vercel
-# Así que dejamos esta parte comentada para que no falle
-# frontend_public_path = os.path.join(os.path.dirname(__file__), "../frontend/public")
-# if os.path.exists(frontend_public_path):
-#     app.mount("/public", StaticFiles(directory=frontend_public_path), name="public")
+
+# -------------------
+# Archivos estáticos
+# -------------------
+# Carpeta para la foto de perfil y otros assets
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
 if __name__ == "__main__":
