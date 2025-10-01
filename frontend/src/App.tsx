@@ -36,7 +36,7 @@ export function App() {
       .catch(() =>
         setSobreMi({
           nombre: "Miguel Sierra",
-          fotoPerfil: "/foto_perfil.jpeg",
+          fotoPerfil:`${BACKEND_URL}/static/foto_perfil.jpeg`,
           profesion: "Desarrollador Junior Python",
           skills: ["Python", "Flask", "FastAPI", "React"],
         })
