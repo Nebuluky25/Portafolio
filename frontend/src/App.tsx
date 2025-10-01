@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import CodeRainBackground from "./CodeRainBackground"; // Fondo de lluvia de código
 import "./App.css";
 
-const BACKEND_URL = "https://portafolio-73wj.onrender.com";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portafolio-73wj.onrender.com";
+
 
 export function App() {
   const [proyectos, setProyectos] = useState<any[]>([]);
