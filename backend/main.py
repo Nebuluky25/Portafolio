@@ -6,18 +6,22 @@ import os
 
 app = FastAPI(title="Portafolio API")
 
-# Permitir que React (Vercel) acceda al backend (Render)
+# Permitir que React acceda al backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ⚠️ En producción cámbialo a tu dominio de Vercel
+    allow_origins=["*"],  # Cambia a tu dominio en producción
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# -------------------
+# Montar la carpeta /static para servir archivos como fotos
+static_path = os.path.join(os.path.dirname(__file__), "static")
+if not os.path.exists(static_path):
+    os.makedirs(static_path)
+app.mount("/static", StaticFiles(directory=static_path), name="static")
+
 # Datos de ejemplo
-# -------------------
 proyectos = [
     {
         "id": 1,
@@ -42,12 +46,8 @@ proyectos = [
 sobre_mi = {
     "nombre": "Miguel Sierra",
     "profesion": "Desarrollador Python Fullstack Junior",
-    "skills": [
-        "Python", "Flask", "FastAPI", "React", "SQL",
-        "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"
-    ],
-    # Ahora servimos la foto desde /static
-    "fotoPerfil": "https://portafolio-73wj.onrender.com/static/foto_perfil.jpeg"
+    "skills": ["Python", "Flask", "FastAPI", "React", "SQL", "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"],
+    "fotoPerfil": "/static/foto_perfil.jpeg"  # <-- aquí apuntamos al static
 }
 
 contacto = {
@@ -56,9 +56,7 @@ contacto = {
     "linkedin": "https://www.linkedin.com/in/miguel-sierra-sacie-830324261"
 }
 
-# -------------------
-# Endpoints API
-# -------------------
+# Endpoints
 @app.get("/")
 async def read_root():
     return {"message": "Hola Mundo"}
@@ -74,16 +72,6 @@ def get_sobre_mi():
 @app.get("/contacto")
 def get_contacto():
     return contacto
-
-
-# -------------------
-# Archivos estáticos
-# -------------------
-# Carpeta para la foto de perfil y otros assets
-static_dir = os.path.join(os.path.dirname(__file__), "static")
-if os.path.exists(static_dir):
-    app.mount("/static", StaticFiles(directory=static_dir), name="static")
-
 
 if __name__ == "__main__":
     import uvicorn
