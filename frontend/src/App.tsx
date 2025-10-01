@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import CodeRainBackground from "./CodeRainBackground"; // Fondo de lluvia de código
 import "./App.css";
 
+// URL del backend
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portafolio-73wj.onrender.com";
-
 
 export function App() {
   const [proyectos, setProyectos] = useState<any[]>([]);
@@ -13,7 +13,7 @@ export function App() {
   const [contacto, setContacto] = useState<any>({});
 
   useEffect(() => {
-    // Proyectos
+    // Obtener proyectos
     axios
       .get(`${BACKEND_URL}/proyectos`)
       .then((res) => setProyectos(Array.isArray(res.data) ? res.data : []))
@@ -28,27 +28,23 @@ export function App() {
         ])
       );
 
-    // Sobre mí
+    // Obtener datos sobre mí
     axios
       .get(`${BACKEND_URL}/sobre-mi`)
-      .then((res) =>
-        setSobreMi(res.data && typeof res.data === "object" ? res.data : {})
-      )
+      .then((res) => setSobreMi(res.data || {}))
       .catch(() =>
         setSobreMi({
           nombre: "Miguel Sierra",
-          fotoPerfil:`${BACKEND_URL}/static/foto_perfil.jpeg`,
+          fotoPerfil: "/foto_perfil.jpeg", // se sirve desde public
           profesion: "Desarrollador Junior Python",
           skills: ["Python", "Flask", "FastAPI", "React"],
         })
       );
 
-    // Contacto
+    // Obtener datos de contacto
     axios
       .get(`${BACKEND_URL}/contacto`)
-      .then((res) =>
-        setContacto(res.data && typeof res.data === "object" ? res.data : {})
-      )
+      .then((res) => setContacto(res.data || {}))
       .catch(() =>
         setContacto({
           email: "msworkpy@gmail.com",
@@ -60,12 +56,10 @@ export function App() {
 
   return (
     <div className="App">
-      {/* Fondo de lluvia de código */}
       <CodeRainBackground />
 
-      {/* Contenido principal */}
-      <div className="content-overlay" style={{ overflow: "hidden" }}>
-        {/* Header */}
+      <div className="content-overlay">
+        {/* Foto de perfil */}
         {sobreMi.fotoPerfil && (
           <motion.div
             className="foto-container"
@@ -81,21 +75,14 @@ export function App() {
           </motion.div>
         )}
 
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
+        {/* Nombre y profesión */}
+        <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
           <span style={{ fontSize: "3rem", color: "#c2c2d2ff" }}>
             {sobreMi.nombre || "Miguel Sierra"}
           </span>
         </motion.h1>
 
-        <motion.h3
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
+        <motion.h3 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.6 }}>
           <span style={{ fontSize: "2rem", color: "#a1a9f0ff" }}>
             {sobreMi.profesion || "Desarrollador Junior Python"}
           </span>
@@ -103,17 +90,11 @@ export function App() {
 
         {/* Sobre mí */}
         <section className="sobre-mi">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}>
             ¡Hola! Soy <strong>{sobreMi.nombre || "Miguel Sierra"}</strong>, Desarrollador con Python.<br />
             Me encanta crear soluciones prácticas y aprender nuevas tecnologías.<br />
             <span>
-              <strong>Experiencia en:</strong>{" "}
-              {sobreMi.skills?.join(", ") ||
-                "Python, Flask, FastAPI, Django, React"}.
+              <strong>Experiencia en:</strong> {sobreMi.skills?.join(", ") || "Python, Flask, FastAPI, Django, React"}.
             </span>
           </motion.p>
         </section>
@@ -122,29 +103,19 @@ export function App() {
         <section className="proyectos-section">
           <h2 style={{ fontSize: "2.2rem", color: "#9da9f5ff" }}>Proyectos</h2>
           <div className="proyectos">
-            {Array.isArray(proyectos) && proyectos.length > 0 ? (
+            {proyectos.length > 0 ? (
               proyectos.map((p, i) => (
                 <motion.div
                   key={p.id}
                   className="proyecto-card"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.2 + i * 0.2,
-                    type: "spring",
-                    stiffness: 150,
-                  }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow:
-                      "0 0 20px rgba(83,117,209,0.7), 0 0 40px rgba(83,117,209,0.5)",
-                  }}
+                  transition={{ delay: 0.2 + i * 0.2, type: "spring", stiffness: 150 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(83,117,209,0.7), 0 0 40px rgba(83,117,209,0.5)" }}
                 >
                   <h3>{p.nombre}</h3>
                   <p>{p.descripcion}</p>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer">
-                    Ver en GitHub
-                  </a>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
                 </motion.div>
               ))
             ) : (
@@ -156,39 +127,9 @@ export function App() {
         {/* Contacto */}
         <section className="contacto" style={{ color: "#929eeeff" }}>
           <h2 style={{ color: "#9ba7f0ff" }}>Contacto</h2>
-          {contacto.email && (
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              style={{ color: "#5c7ff1ff" }}
-            >
-              📧 {contacto.email}
-            </motion.p>
-          )}
-          {contacto.telefono && (
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.35 }}
-              style={{ color: "#5c7ff1ff" }}
-            >
-              📱 {contacto.telefono}
-            </motion.p>
-          )}
-          {contacto.linkedin && (
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              href={contacto.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#5c7ff1ff" }}
-            >
-              LinkedIn
-            </motion.a>
-          )}
+          {contacto.email && <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} style={{ color: "#5c7ff1ff" }}>📧 {contacto.email}</motion.p>}
+          {contacto.telefono && <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35 }} style={{ color: "#5c7ff1ff" }}>📱 {contacto.telefono}</motion.p>}
+          {contacto.linkedin && <motion.a initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} href={contacto.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: "#5c7ff1ff" }}>LinkedIn</motion.a>}
         </section>
       </div>
     </div>
