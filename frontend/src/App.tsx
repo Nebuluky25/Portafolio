@@ -173,10 +173,14 @@ export function App() {
                   <p>{p.descripcion}</p>
                   <button
                     className="proyecto-boton"
-                    onClick={() => window.open(p.url, "_blank", "noopener,noreferrer")}
+                    onClick={() => {
+                      const url = p.url.startsWith("http") ? p.url : `https://${p.url}`;
+                      window.open(url, "_blank", "noopener,noreferrer");
+                    }}
                   >
-                    {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
+                     {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
                   </button>
+
                 </motion.div>
               ))
             ) : (
