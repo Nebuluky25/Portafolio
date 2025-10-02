@@ -172,13 +172,14 @@ export function App() {
                   <h3>{p.nombre}</h3>
                   <p>{p.descripcion}</p>
                   <a
-                    href={p.url.startsWith("http") ? p.url : `https://${p.url}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="proyecto-link">
-                    {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
-                  </a>
-
+                    href={p.url}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open(p.url, "_blank");
+                  }}
+                >
+                  {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
+                </a>
                 </motion.div>
               ))
             ) : (
