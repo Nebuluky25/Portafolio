@@ -98,9 +98,9 @@ export function App() {
             transition={{ duration: 1, type: "spring", stiffness: 90 }}
           >
             <img
-              src={sobreMi.fotoPerfil}
+              src={sobreMi.fotoPerfil || "/foto_perfil.jpeg"}
               alt="Foto de perfil"
-              className="foto-perfil"
+             className="foto-perfil"
             />
           </motion.div>
         )}
@@ -136,8 +136,7 @@ export function App() {
             ¡Hola! Soy <strong>{sobreMi.nombre || "Miguel Sierra"}</strong>,
             Desarrollador con Python.
             <br />
-            Me encanta crear soluciones prácticas y aprender nuevas
-            tecnologías.
+            Muchas ganas de trabajar en equipo y desarrollar mis conocimientos y seguir aprendiendo.
             <br />
             <span>
               <strong>Experiencia en:</strong>{" "}

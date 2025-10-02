@@ -47,7 +47,7 @@ sobre_mi = {
     "nombre": "Miguel Sierra",
     "profesion": "Desarrollador Python Fullstack Junior",
     "skills": ["Python", "Flask", "FastAPI", "React", "SQL", "Postgresql", "AWS", "Chatbots", "DeepAI", "LocalAI"],
-    "fotoPerfil":  "https://portafolio-73wj.onrender.com/static/foto_perfil.jpeg"
+    "fotoPerfil": "https://portafolio-73wj.onrender.com/static/foto_perfil.jpeg"
 }
 
 contacto = {
