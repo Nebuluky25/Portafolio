@@ -33,7 +33,7 @@ proyectos = [
         "id": 2,
         "nombre": "API Centro de Manicura",
         "descripcion": "API para gestión de citas en un centro de manicura",
-        "url": "https://github.com/tuusuario/api-manicura"
+        "url": "https://github.com/Nebuluky25/api-manicura"
     },
     {
         "id": 3,

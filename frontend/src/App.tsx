@@ -64,7 +64,7 @@ export function App() {
       .catch(() =>
         setSobreMi({
           nombre: "Miguel Sierra",
-          fotoPerfil: "/foto_perfil.jpeg", // se sirve desde public
+          fotoPerfil: "/foto_perfil.jpeg",
           profesion: "Desarrollador Junior Python",
           skills: ["Python", "Flask", "FastAPI", "React"],
         })
@@ -173,9 +173,7 @@ export function App() {
                   <p>{p.descripcion}</p>
                   <button
                     className="proyecto-boton"
-                    onClick={() =>
-                      window.open(p.url, "_blank", "noopener,noreferrer")
-                    }
+                    onClick={() => window.open(p.url, "_blank", "noopener,noreferrer")}
                   >
                     {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
                   </button>
