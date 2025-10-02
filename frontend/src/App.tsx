@@ -100,7 +100,7 @@ export function App() {
             <img
               src={sobreMi.fotoPerfil || "/foto_perfil.jpeg"}
               alt="Foto de perfil"
-             className="foto-perfil"
+              className="foto-perfil"
             />
           </motion.div>
         )}
@@ -172,14 +172,13 @@ export function App() {
                   <h3>{p.nombre}</h3>
                   <p>{p.descripcion}</p>
                   <a
-                    href={p.url}
+                    href={p.url.startsWith("http") ? p.url : `https://${p.url}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                  >
-                    {p.url.includes("github.com")
-                      ? "Ver en GitHub"
-                      : "Ver Proyecto"}
+                    className="proyecto-link">
+                    {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
                   </a>
+
                 </motion.div>
               ))
             ) : (
