@@ -173,13 +173,14 @@ export function App() {
                   <p>{p.descripcion}</p>
                   <a
                     href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={(e) => {
-                      e.preventDefault();
-                      window.open(p.url, "_blank");
-                  }}
+                      e.stopPropagation(); // evita que el click sea capturado por React Router
+                    }}
                 >
-                  {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
-                </a>
+                    {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
+                  </a>
                 </motion.div>
               ))
             ) : (
