@@ -136,7 +136,7 @@ export function App() {
             ¡Hola! Soy <strong>{sobreMi.nombre || "Miguel Sierra"}</strong>,
             Desarrollador con Python.
             <br />
-            Muchas ganas de trabajar en equipo y desarrollar mis conocimientos y seguir aprendiendo.
+            Muchas ganas de trabajar en equipo y seguir aprendiendo.
             <br />
             <span>
               <strong>Experiencia en:</strong>{" "}
@@ -171,16 +171,14 @@ export function App() {
                 >
                   <h3>{p.nombre}</h3>
                   <p>{p.descripcion}</p>
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => {
-                      e.stopPropagation(); // evita que el click sea capturado por React Router
-                    }}
-                >
+                  <button
+                    className="proyecto-boton"
+                    onClick={() =>
+                      window.open(p.url, "_blank", "noopener,noreferrer")
+                    }
+                  >
                     {p.url.includes("github.com") ? "Ver en GitHub" : "Ver Proyecto"}
-                  </a>
+                  </button>
                 </motion.div>
               ))
             ) : (
