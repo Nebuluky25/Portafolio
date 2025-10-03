@@ -136,7 +136,9 @@ export function App() {
             ¡Hola! Soy <strong>{sobreMi.nombre || "Miguel Sierra"}</strong>,
             Desarrollador con Python.
             <br />
-            Muchas ganas de trabajar en equipo y seguir aprendiendo.
+            Profesional comprometido, analítico y amante del trabajo bien hecho.
+            Busco unirme a un equipo dinámico, donde poder aportar a la vez que crecer.
+            Apasionado por el ámbito tecnológico y deseoso de poder progresar con mi carrera en el ámbito de Python.
             <br />
             <span>
               <strong>Experiencia en:</strong>{" "}
