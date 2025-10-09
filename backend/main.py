@@ -27,19 +27,19 @@ proyectos = [
         "id": 1,
         "nombre": "API Centros Deportivos",
         "descripcion": "API para el control de centros deportivos",
-        "url": "https://github.com/Nebuluky25/My_Code"
+        "url": "https://github.com/Nebuluky25/Api-Centro-deportivo"
     },
     {
         "id": 2,
         "nombre": "API Centro de Manicura",
         "descripcion": "API para gestión de citas en un centro de manicura",
-        "url": "https://github.com/Nebuluky25/api-manicura"
+        "url": "https://github.com/Nebuluky25/Api-Manicurista"
     },
     {
         "id": 3,
         "nombre": "API Chatbot, openai y localAI",
         "descripcion": "APIs para chatbots usando openai y localAI",
-        "url": "https://github.com/Nebuluky25/Python_code"
+        "url": "https://github.com/Nebuluky25/Chat-bot-local-and-Openai."
     }
 ]
 
